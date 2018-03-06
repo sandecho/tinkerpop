@@ -201,7 +201,7 @@ current release was under development as this new release will have those change
 . `bin/publish-docs.sh <username>` - Note that this step requires no additional processing as the previous step handled
 document generation and this step now merely needs to upload what was generated. Note that this step will be responsible
 for generating javadoc and without that the binary distributions won't contain that documentation.
-. `mvn deploy -Papache-release -DcreateChecksum=true -DskipTests` - deploy signed artifacts with checksums to link:https://repository.apache.org/[Apache Nexus].
+. `mvn deploy -Papache-release -DskipTests` - deploy signed artifacts with checksums to link:https://repository.apache.org/[Apache Nexus].
 . Review generated artifacts to be sure they have both javadocs and asciidocs present (request another committer to review as well) then "close" the repo - if the repo is left open it will be automatically dropped after five days and closing the repo will allow it to stay available for a full ninety days which is more than enough time to complete a vote. Do NOT "release" the repository at this time.
 . Upload artifacts to `https://dist.apache.org/repos/dist/dev/tinkerpop` for `[VOTE]` review.
 .. Use `svn rm` to delete past versions that were up for review in the same line of code. In other words, if uploading 3.2.3 then remove instances of 3.2.2 or any other past 3.2.x releases.

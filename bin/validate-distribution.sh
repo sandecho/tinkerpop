@@ -83,7 +83,7 @@ fi
 
 echo -n "* downloading ${COMPONENT} (${ZIP_FILENAME})... "
 curl -Lsf ${URL} -o ${ZIP_FILENAME} || { echo "Failed to download ${COMPONENT}" ; exit 1; }
-for ext in "asc" "md5" "sha1"
+for ext in "asc" "sha256"
 do
   curl -Lsf ${URL}.${ext} -o ${ZIP_FILENAME}.${ext} || { echo "Failed to download ${COMPONENT} (${ext})" ; exit 1 ; }
 done
@@ -98,12 +98,6 @@ echo -n "  * PGP signature ... "
 [ `gpg ${ZIP_FILENAME}.asc 2>&1 | grep -c '^gpg: Good signature from "Theodore Ratte Wilmes (CODE SIGNING KEY) <twilmes@apache.org>"'` -eq 1 ] || \
 [ `gpg ${ZIP_FILENAME}.asc 2>&1 | grep -c '^gpg: Good signature from "Jason Plurad (CODE SIGNING KEY) <pluradj@apache.org>"'` -eq 1 ] || \
 { echo "failed"; exit 1; }
-echo "OK"
-
-echo -n "  * MD5 checksum ... "
-EXPECTED=`cat ${ZIP_FILENAME}.md5`
-ACTUAL=`md5sum ${ZIP_FILENAME} | awk '{print $1}'`
-[ "$ACTUAL" = "${EXPECTED}" ] || { echo "failed"; exit 1; }
 echo "OK"
 
 echo -n "  * SHA1 checksum ... "
